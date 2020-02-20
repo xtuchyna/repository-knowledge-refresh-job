@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: CronJob
+metadata:
+  name: repository-knowledge-refresh-cronjob
+  annotations:
+    description: >
+      CronJob that updates knowledge of the selected thoth-station repositories.
+    openshift.io/display-name: "SrcOpsMetrics: Thoth-station Knowledge Refresh Job"
+    version: 0.0.1
+    tags: aicoe,thoth
+    template.openshift.io/long-description: >
+      The knowledge that is being updated consits of collected data about Issues, Pull
+      requests and its reviews.
+    template.openshift.io/provider-display-name: "Red Hat, Inc."
+  labels:
+    template: repository-knowledge-refresh-cronjob
+    component: knowledge-refresh
+
+
+objects:
+  - kind: CronJob
+    apiVersion: batch/v1beta1
+    metadata:
+      name: repository-knowledge-refresh-cronjob
+    labels:
+        app: srcopsmetrics
+        component: knowledge-refresh
+    spec:
+        schedule: "0 * * * *"
